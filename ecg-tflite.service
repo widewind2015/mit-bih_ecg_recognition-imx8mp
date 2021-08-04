@@ -4,6 +4,7 @@ After=multi-user.target
 
 [Service]
 Restart=always
+WorkingDirectory=/home/root/mit-bih_ecg_recognition
 Type=simple
 ExecStart=/usr/bin/python3 /home/root/mit-bih_ecg_recognition/ecg.py
 RestartSec=1
