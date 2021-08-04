@@ -5,6 +5,7 @@ import time
 from PyQt5.QtCore import QTimer,QDateTime
 import os
 import psutil
+from pathlib import Path
 
 
 class App(QWidget):
@@ -55,7 +56,15 @@ class App(QWidget):
         cpu_usage = (load1/os.cpu_count()) * 100
         self.label_cpu_usage.setText(str(cpu_usage))
 
-        file_ina219 = open('/sys/class/hwmon/hwmon1/power1_input', 'r')
+        file_ina219 = open('/home/root/mit-bih_ecg_recognition/ecg.py', 'r')
+        #file_test = Path('/sys/class/hwmon/hwmon0/power1_input')
+        if Path('/sys/class/hwmon/hwmon0/power1_input').is_file():
+            file_ina219 = open('/sys/class/hwmon/hwmon0/power1_input', 'r')
+        elif Path('/sys/class/hwmon/hwmon1/power1_input').is_file():
+            file_ina219 = open('/sys/class/hwmon/hwmon1/power1_input', 'r')
+        else:
+            os.system("reboot")
+
         power_ina219 = int(file_ina219.readline())/1000000
         self.label_power_vaule.setText(str(power_ina219))
 
