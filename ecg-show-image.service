@@ -1,0 +1,15 @@
+[Unit]
+Description=Start a wayland application
+After=weston@root.service
+Requires=weston@root.service
+
+[Service]
+#Restart=on-failure
+Type=simple
+Environment="QT_QPA_PLATFORM=wayland-egl"
+Environment="XDG_RUNTIME_DIR=/run/user/0"
+ExecStart=/usr/bin/python3 /home/root/pyqt5/loadimage.py
+#RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
